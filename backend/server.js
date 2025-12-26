@@ -53,6 +53,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Employee Wellbeing API is running' });
 });
 
+// Root route (helps avoid "Cannot GET /" on deployments)
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Wellpredict API',
+    status: 'ok',
+    health: '/health',
+    apiHealth: '/api/health',
+  });
+});
+
 // Production-style health endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
