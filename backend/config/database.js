@@ -21,7 +21,8 @@ const poolConfig = process.env.DATABASE_URL
       ...(shouldUseSSL ? { ssl: { rejectUnauthorized: false } } : {}),
       max: 20,
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
+      // Cloud DBs (Railway/Render) can take a few seconds to establish a new connection.
+      connectionTimeoutMillis: 10000,
     }
   : {
       host: process.env.DB_HOST || 'localhost',
@@ -30,7 +31,7 @@ const poolConfig = process.env.DATABASE_URL
       user: process.env.DB_USER || 'postgres',
       max: 20,
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
+      connectionTimeoutMillis: 10000,
       ...(shouldUseSSL ? { ssl: { rejectUnauthorized: false } } : {}),
     };
 
